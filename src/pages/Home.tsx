@@ -30,7 +30,12 @@ export function Home() {
 
         const roomRef = await database.ref(`rooms/${roomCode}`).get();
         if (!roomRef.exists()) {
-            alert('Room does not exixts.');
+            alert('A sala não existe.');
+            return;
+        }
+
+        if (roomRef.val().endedAt) {
+            alert('A sala já foi fechada');
             return;
         }
 
@@ -51,7 +56,7 @@ export function Home() {
                         <img src={googleIconImg} alt="Logo do Google" />
                         Crie sua sala com o Google
                     </button>
-                    <div className="separator">ou entre en uma sala</div>
+                    <div className="separator">ou entre em uma sala</div>
                     <form onSubmit={handlerJoinRoom}>
                         <input
                             type="text"
